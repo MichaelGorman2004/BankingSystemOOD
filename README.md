@@ -1,77 +1,107 @@
-Clarify Requirements
-"First, I'd clarify the requirements with the interviewer. In this case, we need a backend system for customer accounts, transactions, and e-commerce functionality. I'd ask about expected scale, performance requirements, and any specific features they're looking for."
-Identify Key Entities
-"Next, I'd identify the key entities in our system:
+# Customer Account System
 
-Customers: The users of our system
-Accounts: Financial accounts associated with customers
-Transactions: Records of financial activities
-Products: Items available for purchase
-These form the core of our data model."
+## Overview
 
+This Customer Account System is a Python-based backend simulation for managing customer accounts, transactions, and product purchases. It provides a foundation for building e-commerce platforms or banking systems.
 
-Define Relationships
-"Then, I'd define the relationships between these entities:
+## Features
 
-A Customer can have one or more Accounts
-An Account belongs to one Customer
-An Account can have multiple Transactions
-A Transaction belongs to one Account
-Products exist independently but are involved in purchase Transactions"
+- Customer Management
+  - Create and verify customer accounts
+  - Secure password hashing
+  - Customer sign-in functionality
 
+- Account Management
+  - Create accounts for verified customers
+  - Track account balances
+  - Record and retrieve transactions
 
-Outline Core Functionalities
-"Based on the requirements, I'd outline the core functionalities:
+- Product Management
+  - Add products to the system
+  - Track product inventory
 
-Customer management: registration, verification, authentication
-Account management: creation, balance tracking
-Transaction handling: recording deposits, withdrawals, purchases
-Product management: listing, inventory tracking
-Purchase process: buying products, updating balances and inventory"
+- Transaction Handling
+  - Process deposits and withdrawals
+  - Handle product purchases
+  - Maintain transaction history
 
+## Requirements
 
-Design Class Structure
-"With these in mind, I'd design the class structure:
+- Python 3.6+
 
-Customer class: stores customer information
-Account class: manages account details and transactions
-Transaction class: represents individual financial transactions
-Product class: represents items for sale
-AccountSystem class: orchestrates interactions between other classes"
+## Installation
 
+1. Clone this repository:
+   ```
+   git clone https://github.com/yourusername/customer-account-system.git
+   ```
+2. Navigate to the project directory:
+   ```
+   cd customer-account-system
+   ```
 
-Consider Security Aspects
-"Security is crucial, so I'd incorporate:
+## Usage
 
-Password hashing for customer accounts
-Email validation for registration
-Customer verification process before allowing account creation"
+To run the example script:
 
+```
+python bank_system.py
+```
 
-Plan for Scalability
-"To ensure the system can handle growth:
+This will execute a series of operations demonstrating the system's functionality, including:
+- Creating a customer
+- Signing in
+- Creating an account
+- Adding funds
+- Adding a product
+- Purchasing a product
 
-Use of efficient data structures (e.g., dictionaries for quick lookups)
-Design methods to be independent and modular for easy scaling
-Consider future implementation of database integration"
+## Code Structure
 
+- `Customer`: Represents a customer with basic information and verification status
+- `Account`: Manages account details and transactions
+- `Transaction`: Represents individual financial transactions
+- `Product`: Represents items available for purchase
+- `AccountSystem`: Orchestrates interactions between other classes
 
-Think About Edge Cases
-"I'd consider edge cases and error handling:
+## Example
 
-What if a customer tries to buy a product with insufficient funds?
-How do we handle attempts to create duplicate accounts?
-What if a product is out of stock?"
+```python
+system = AccountSystem()
 
+# Create and verify a customer
+customer = system.create_customer("John Doe", "john@example.com", "password123")
+system.verify_customer(customer.customer_id)
 
-Discuss Potential Enhancements
-"Finally, I'd mention potential future enhancements:
+# Sign in
+signed_in_customer = system.sign_in("john@example.com", "password123")
 
-Implementing a simple chatbot for customer queries
-Adding a recommendation system based on purchase history
-Generating detailed account statements
-Integrating with external payment systems"
+# Create an account and add funds
+account = system.create_account(customer)
+system.create_transaction(account, 1000.0, "Initial deposit")
 
+# Add a product and make a purchase
+product = system.add_product("Laptop", 800.0, 10)
+system.buy_product(account.account_id, product.product_id, 1)
 
-Reflect on Trade-offs
-"Throughout the design process, I'd consider trade-offs. For example, storing transactions in memory is simple but not scalable for a real-world application. In a production environment, we'd need to use a database."
+# Check balance and last transaction
+print(f"Account balance: {account.balance}")
+last_transaction = system.get_last_transaction(account.account_id)
+print(f"Last transaction: {last_transaction.description}, Amount: {last_transaction.amount}")
+```
+
+## Future Enhancements
+
+- Database integration for persistent storage
+- User interface (web or mobile app)
+- More robust error handling and logging
+- Integration with external payment systems
+- Implementation of a recommendation system
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
